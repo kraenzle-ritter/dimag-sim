@@ -1,5 +1,11 @@
 # dimag-sim
 
+[![Tests](https://github.com/kraenzle-ritter/dimag-sim/actions/workflows/test.yml/badge.svg)](https://github.com/kraenzle-ritter/dimag-sim/actions/workflows/test.yml)
+[![License](https://img.shields.io/github/license/kraenzle-ritter/dimag-sim)](LICENSE)
+[![PHP Version](https://img.shields.io/badge/PHP-8.2%2B-blue)](https://www.php.net/)
+[![DIMAG](https://img.shields.io/badge/DIMAG-3.5.0-0b5394)](docs/behaviour.md)
+[![DDEV add-on](https://img.shields.io/badge/DDEV-add--on-02a8e2)](https://ddev.com/)
+
 A stand-in for the [DIMAG](https://www.dimag.la-bw.de/) digital archive for
 local development and CI: the KM-SOAP web service of the DIMAG core module
 plus the SFTP drop it reads from and writes to. It accepts control files
