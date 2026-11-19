@@ -1,0 +1,48 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: soap, dom
+
+      - run: composer install --no-progress
+
+      - name: Lint
+        run: find dimag-sim recorder tests examples -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null
+
+      - name: Start simulator (SOAP + SFTP)
+        run: docker compose up -d --build --wait
+
+      - name: Contract tests (recorded DIMAG vs. simulator)
+        env: &target
+          DIMAG_SOAP_URL: http://localhost:8080/soap/webservice_3_5_0.php
+          DIMAG_USER: inge
+          DIMAG_PASSWORD: inge
+          DIMAG_ADMIN_USER: admin
+          DIMAG_ADMIN_PASSWORD: admin
+          DIMAG_SFTP_HOST: localhost
+          DIMAG_SFTP_PORT: '2222'
+          DIMAG_SFTP_USER: inge
+          DIMAG_SFTP_PASSWORD: inge
+          DIMAG_SFTP_ROOT: Import
+        run: php tests/contract.php
+
+      - name: Simulator tests
+        env: *target
+        run: php tests/sim.php
+
+      - name: Fixtures carry no installation data
+        run: php tests/scrub-check.php
+
+      - if: failure()
+        run: docker compose logs

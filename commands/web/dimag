@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+#ddev-generated
+## Description: Control the simulated DIMAG (dimag-sim)
+## Usage: dimag status|state|reset|seed <file.json>|faults '<json>'|faults-off
+## Example: "ddev dimag reset" or "ddev dimag faults '{\"down\":true}'"
+
+base=http://dimag:8080
+case "${1:-status}" in
+  status) curl -fsS "$base/" && curl -fsS "$base/_sim/health" && echo ;;
+  state) curl -fsS "$base/_sim/state" ;;
+  reset) curl -fsS -X POST "$base/_sim/reset" && echo ;;
+  seed) curl -fsS -X POST -H 'Content-Type: application/json' --data-binary "@${2:?seed file}" "$base/_sim/seed" && echo ;;
+  faults) curl -fsS -X POST -H 'Content-Type: application/json' -d "${2:-{\}}" "$base/_sim/faults" && echo ;;
+  faults-off) curl -fsS -X POST -H 'Content-Type: application/json' -d '{}' "$base/_sim/faults" && echo ;;
+  *) echo "usage: ddev dimag status|state|reset|seed <file>|faults '<json>'|faults-off" >&2; exit 1 ;;
+esac

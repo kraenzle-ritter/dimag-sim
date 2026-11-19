@@ -1,0 +1,54 @@
+#ddev-generated
+# dimag-sim: simulated DIMAG for this project. Settings: see the README of
+# https://github.com/kraenzle-ritter/dimag-sim (override in
+# .ddev/docker-compose.dimag_extra.yaml, or set the variables in .ddev/.env).
+services:
+  dimag:
+    container_name: ddev-${DDEV_SITENAME}-dimag
+    build:
+      context: ./dimag-sim
+    image: ddev-${DDEV_SITENAME}-dimag-sim
+    pull_policy: build
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: ${DDEV_APPROOT}
+    expose:
+      - "8080"
+    environment:
+      DIMAG_SIM_VERSION: ${DIMAG_SIM_VERSION:-3.5.0}
+      DIMAG_SIM_PREFIX: ${DIMAG_SIM_PREFIX:-sim}
+      DIMAG_SIM_URL: http://dimag
+      DIMAG_SIM_TIMEZONE: ${DIMAG_SIM_TIMEZONE:-Europe/Berlin}
+      DIMAG_SIM_USERS: ${DIMAG_SIM_USERS:-inge:inge:Test User:sim-2;admin:admin:Test Admin:*:admin}
+      # browse https://<project>.ddev.site:8581/_sim/state
+      VIRTUAL_HOST: ${DDEV_HOSTNAME}
+      HTTP_EXPOSE: 8580:8080
+      HTTPS_EXPOSE: 8581:8080
+    volumes:
+      - dimag-drop:/data/sftp/Import
+      - dimag-state:/data/state
+
+  dimag-sftp:
+    container_name: ddev-${DDEV_SITENAME}-dimag-sftp
+    build:
+      context: ./dimag-sim/sftp
+    image: ddev-${DDEV_SITENAME}-dimag-sftp
+    pull_policy: build
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: ${DDEV_APPROOT}
+    expose:
+      - "22"
+    environment:
+      DIMAG_SFTP_USERS: ${DIMAG_SFTP_USERS:-inge:inge:1000:Import}
+    volumes:
+      - dimag-drop:/home/inge/Import
+      - dimag-sftp-keys:/etc/ssh/keys
+
+volumes:
+  dimag-drop:
+    name: ddev-${DDEV_SITENAME}-dimag-drop
+  dimag-state:
+    name: ddev-${DDEV_SITENAME}-dimag-state
+  dimag-sftp-keys:
+    name: ddev-${DDEV_SITENAME}-dimag-sftp-keys

@@ -1,0 +1,282 @@
+{
+    "scenario": "read-only",
+    "dimag_version": "3.5.0",
+    "xsd_version": "LaBW_IngExt_2023-08-21.xsd",
+    "recorded_on": "2026-11-19",
+    "soap_path": "/soap/webservice_3_5_0.php",
+    "known_differences": [],
+    "steps": [
+        {
+            "id": "status",
+            "type": "soap",
+            "operation": "getStatus",
+            "account": "user",
+            "args": [],
+            "result": {
+                "status": "200",
+                "msg": "DIMAG-3.5.0\t\t[{time}] \n\tURL:               \t{url}\n\tArchivName:        \t{archive}\n\tsftp Path:         \t{sftp_dir}\n\tImport XSD Version:\tLaBW_IngExt_2023-08-21.xsd\n\tDIMAG prefix:      \t{prefix}"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getStatus/></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:getStatusResponse><status>200</status><msg>DIMAG-3.5.0\t\t[{time}] \n\tURL:               \t{url}\n\tArchivName:        \t{archive}\n\tsftp Path:         \t{sftp_dir}\n\tImport XSD Version:\tLaBW_IngExt_2023-08-21.xsd\n\tDIMAG prefix:      \t{prefix}</msg></ns1:getStatusResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "prefix_list",
+            "type": "soap",
+            "operation": "getPrefixList",
+            "account": "user",
+            "args": [],
+            "result": {
+                "status": "400",
+                "msg": "Error: fetch of prefixList failed",
+                "prefixList": ""
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getPrefixList/></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:getPrefixListResponse><status>400</status><msg>Error: fetch of prefixList failed</msg><prefixList></prefixList></ns1:getPrefixListResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "changed_future",
+            "note": "no object changed after this date",
+            "type": "soap",
+            "operation": "getObjectsChangedSince",
+            "account": "user",
+            "args": [
+                "{datetime}"
+            ],
+            "result": {
+                "status": "200",
+                "msg": "nothing appropriate found",
+                "hits": "0",
+                "aIDList": ""
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getObjectsChangedSince><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">{datetime}</param2></ns1:getObjectsChangedSince></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:getObjectsChangedSinceResponse><status>200</status><msg>nothing appropriate found</msg><hits>0</hits><aIDList></aIDList></ns1:getObjectsChangedSinceResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "changed_date_only",
+            "note": "date without time",
+            "type": "soap",
+            "operation": "getObjectsChangedSince",
+            "account": "user",
+            "args": [
+                "2099-01-01"
+            ],
+            "result": {
+                "status": "500",
+                "msg": "Exception: Wrong datetime format!",
+                "hits": "",
+                "aIDList": ""
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getObjectsChangedSince><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">2099-01-01</param2></ns1:getObjectsChangedSince></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:getObjectsChangedSinceResponse><status>500</status><msg>Exception: Wrong datetime format!</msg><hits></hits><aIDList></aIDList></ns1:getObjectsChangedSinceResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "changed_garbage",
+            "type": "soap",
+            "operation": "getObjectsChangedSince",
+            "account": "user",
+            "args": [
+                "not a date"
+            ],
+            "result": {
+                "status": "500",
+                "msg": "Exception: Wrong datetime format!",
+                "hits": "",
+                "aIDList": ""
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getObjectsChangedSince><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">not a date</param2></ns1:getObjectsChangedSince></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:getObjectsChangedSinceResponse><status>500</status><msg>Exception: Wrong datetime format!</msg><hits></hits><aIDList></aIDList></ns1:getObjectsChangedSinceResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "kv_no_hit",
+            "type": "soap",
+            "operation": "getAIDforKeyValue",
+            "account": "user",
+            "args": [
+                "aid",
+                "dimagsim-none-{run}%",
+                "File"
+            ],
+            "result": {
+                "status": "200",
+                "msg": "nothing appropriate found",
+                "hits": "0",
+                "aIDList": ""
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getAIDforKeyValue><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">aid</param2><param3 xsi:type=\"xsd:string\">dimagsim-none-{run}%</param3><param4 xsi:type=\"xsd:string\">File</param4></ns1:getAIDforKeyValue></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:getAIDforKeyValueResponse><status>200</status><msg>nothing appropriate found</msg><hits>0</hits><aIDList></aIDList></ns1:getAIDforKeyValueResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "kv_no_hit_star",
+            "note": "Inge getAidsWithPrefix uses * as wildcard",
+            "type": "soap",
+            "operation": "getAIDforKeyValue",
+            "account": "user",
+            "args": [
+                "aid",
+                "dimagsim-none-{run}*",
+                "File"
+            ],
+            "result": {
+                "status": "200",
+                "msg": "nothing appropriate found",
+                "hits": "0",
+                "aIDList": ""
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getAIDforKeyValue><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">aid</param2><param3 xsi:type=\"xsd:string\">dimagsim-none-{run}*</param3><param4 xsi:type=\"xsd:string\">File</param4></ns1:getAIDforKeyValue></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:getAIDforKeyValueResponse><status>200</status><msg>nothing appropriate found</msg><hits>0</hits><aIDList></aIDList></ns1:getAIDforKeyValueResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "kv_md5_no_hit",
+            "note": "Inge ChecksumController",
+            "type": "soap",
+            "operation": "getAIDforKeyValue",
+            "account": "user",
+            "args": [
+                "md5",
+                "00000000000000000000000000000000",
+                "File"
+            ],
+            "result": {
+                "status": "200",
+                "msg": "nothing appropriate found",
+                "hits": "0",
+                "aIDList": ""
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getAIDforKeyValue><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">md5</param2><param3 xsi:type=\"xsd:string\">00000000000000000000000000000000</param3><param4 xsi:type=\"xsd:string\">File</param4></ns1:getAIDforKeyValue></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:getAIDforKeyValueResponse><status>200</status><msg>nothing appropriate found</msg><hits>0</hits><aIDList></aIDList></ns1:getAIDforKeyValueResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "kv_bad_type",
+            "type": "soap",
+            "operation": "getAIDforKeyValue",
+            "account": "user",
+            "args": [
+                "aid",
+                "dimagsim-none-{run}%",
+                "Nonsense"
+            ],
+            "result": {
+                "status": "200",
+                "msg": "nothing appropriate found",
+                "hits": "0",
+                "aIDList": ""
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getAIDforKeyValue><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">aid</param2><param3 xsi:type=\"xsd:string\">dimagsim-none-{run}%</param3><param4 xsi:type=\"xsd:string\">Nonsense</param4></ns1:getAIDforKeyValue></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:getAIDforKeyValueResponse><status>200</status><msg>nothing appropriate found</msg><hits>0</hits><aIDList></aIDList></ns1:getAIDforKeyValueResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "export_missing_meta",
+            "note": "Inge exportMetadata on an unknown AID",
+            "type": "soap",
+            "operation": "exportDoc",
+            "account": "user",
+            "args": [
+                "dimagsim-none-{run}",
+                "all",
+                false,
+                true,
+                false
+            ],
+            "result": {
+                "status": "500",
+                "msg": "Exception: Failed to find dimagsim-none-{run}",
+                "ControlFile": ""
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:exportDoc><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-none-{run}</param2><param3 xsi:type=\"xsd:string\">all</param3><param4 xsi:type=\"xsd:boolean\">false</param4><param5 xsi:type=\"xsd:boolean\">true</param5><param6 xsi:type=\"xsd:boolean\">false</param6></ns1:exportDoc></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:exportDocResponse><status>500</status><msg>Exception: Failed to find dimagsim-none-{run}</msg><ControlFile></ControlFile></ns1:exportDocResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "export_missing_doc",
+            "note": "Inge exportDoc / getStatusForAid on an unknown AID",
+            "type": "soap",
+            "operation": "exportDoc",
+            "account": "user",
+            "args": [
+                "dimagsim-none-{run}",
+                "last",
+                false,
+                false,
+                true
+            ],
+            "result": {
+                "status": "500",
+                "msg": "Exception: Failed to find dimagsim-none-{run}",
+                "ControlFile": ""
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:exportDoc><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-none-{run}</param2><param3 xsi:type=\"xsd:string\">last</param3><param4 xsi:type=\"xsd:boolean\">false</param4><param5 xsi:type=\"xsd:boolean\">false</param5><param6 xsi:type=\"xsd:boolean\">true</param6></ns1:exportDoc></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:exportDocResponse><status>500</status><msg>Exception: Failed to find dimagsim-none-{run}</msg><ControlFile></ControlFile></ns1:exportDocResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "status_360",
+            "note": "is a 3.6.0 endpoint offered?",
+            "type": "soap",
+            "operation": "getStatus",
+            "account": "user",
+            "args": [],
+            "result": null,
+            "fault": {
+                "faultcode": "HTTP",
+                "faultstring": "Not Found"
+            },
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_6_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getStatus/></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "",
+            "http_status": 404
+        },
+        {
+            "id": "status_admin",
+            "type": "soap",
+            "operation": "getStatus",
+            "account": "admin",
+            "args": [],
+            "result": {
+                "status": "200",
+                "msg": "DIMAG-3.5.0\t\t[{time}] \n\tURL:               \t{url}\n\tArchivName:        \t{archive}\n\tsftp Path:         \t{sftp_dir}\n\tImport XSD Version:\tLaBW_IngExt_2023-08-21.xsd\n\tDIMAG prefix:      \t{prefix}"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getStatus/></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:getStatusResponse><status>200</status><msg>DIMAG-3.5.0\t\t[{time}] \n\tURL:               \t{url}\n\tArchivName:        \t{archive}\n\tsftp Path:         \t{sftp_dir}\n\tImport XSD Version:\tLaBW_IngExt_2023-08-21.xsd\n\tDIMAG prefix:      \t{prefix}</msg></ns1:getStatusResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "changed_future_admin",
+            "type": "soap",
+            "operation": "getObjectsChangedSince",
+            "account": "admin",
+            "args": [
+                "{datetime}"
+            ],
+            "result": {
+                "status": "200",
+                "msg": "nothing appropriate found",
+                "hits": "0",
+                "aIDList": ""
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getObjectsChangedSince><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">{datetime}</param2></ns1:getObjectsChangedSince></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:getObjectsChangedSinceResponse><status>200</status><msg>nothing appropriate found</msg><hits>0</hits><aIDList></aIDList></ns1:getObjectsChangedSinceResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        }
+    ]
+}

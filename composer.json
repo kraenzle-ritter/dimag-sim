@@ -1,0 +1,26 @@
+{
+    "name": "kraenzle-ritter/dimag-sim",
+    "description": "A stand-in for the DIMAG digital archive (KM-SOAP and SFTP drop) for local development and CI, checked against recordings of a real DIMAG.",
+    "type": "project",
+    "license": "MIT",
+    "keywords": ["dimag", "digital archive", "soap", "sftp", "simulator", "ddev", "archives"],
+    "require": {
+        "php": ">=8.2",
+        "ext-dom": "*",
+        "ext-soap": "*",
+        "phpseclib/phpseclib": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "DimagSim\\": "dimag-sim/src/",
+            "DimagSim\\Recorder\\": "recorder/lib/"
+        }
+    },
+    "scripts": {
+        "contract": "php tests/contract.php",
+        "test": "php tests/sim.php"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

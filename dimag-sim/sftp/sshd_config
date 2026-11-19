@@ -1,0 +1,13 @@
+#ddev-generated
+Port 22
+HostKey /etc/ssh/keys/ssh_host_ed25519_key
+HostKey /etc/ssh/keys/ssh_host_rsa_key
+PermitRootLogin no
+PasswordAuthentication yes
+KbdInteractiveAuthentication no
+UseDNS no
+X11Forwarding no
+AllowTcpForwarding no
+Subsystem sftp internal-sftp
+ForceCommand internal-sftp
+ChrootDirectory /home/%u

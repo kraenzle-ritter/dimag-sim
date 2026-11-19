@@ -1,0 +1,1263 @@
+{
+    "scenario": "lifecycle",
+    "dimag_version": "3.5.0",
+    "xsd_version": "LaBW_IngExt_2023-08-21.xsd",
+    "recorded_on": "2026-11-19",
+    "soap_path": "/soap/webservice_3_5_0.php",
+    "known_differences": [],
+    "steps": [
+        {
+            "id": "status",
+            "type": "soap",
+            "operation": "getStatus",
+            "account": "user",
+            "args": [],
+            "result": {
+                "status": "200",
+                "msg": "DIMAG-3.5.0\t\t[{time}] \n\tURL:               \t{url}\n\tArchivName:        \t{archive}\n\tsftp Path:         \t{sftp_dir}\n\tImport XSD Version:\tLaBW_IngExt_2023-08-21.xsd\n\tDIMAG prefix:      \t{prefix}"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getStatus/></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:getStatusResponse><status>200</status><msg>DIMAG-3.5.0\t\t[{time}] \n\tURL:               \t{url}\n\tArchivName:        \t{archive}\n\tsftp Path:         \t{sftp_dir}\n\tImport XSD Version:\tLaBW_IngExt_2023-08-21.xsd\n\tDIMAG prefix:      \t{prefix}</msg></ns1:getStatusResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "file1_put",
+            "type": "sftp",
+            "action": "put",
+            "path": "/Import/dimagsim-{run}/1/test.txt",
+            "ok": true,
+            "md5": "84db056a04df275312b977ca2d910a49"
+        },
+        {
+            "id": "import_tree_put",
+            "type": "sftp",
+            "action": "put",
+            "path": "/Import/dimagsim-{run}/1/load-xml.xml",
+            "ok": true,
+            "md5": "c87ccd159a14967fcbb2271aaa558505"
+        },
+        {
+            "id": "import_tree",
+            "type": "soap",
+            "operation": "importDoc",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}/1/load-xml.xml"
+            ],
+            "result": {
+                "status": "200",
+                "msg": "Success: processControlAndProtocolXML(): ok: Strukturobjekt dimagsim-{run}-s [{root_signatur} dimagsim] : dimag-sim structure inserted<br/>\nok: Informationsobjekt dimagsim-{run}-o [] : dimag-sim delivery inserted<br/>\nok: Repräsentation dimagsim-{run}-r1 [] : Dateien inserted<br/>\nok: Repräsentation dimagsim-{run}-r2 [] : Dateien 2 inserted<br/>\nok: Primärdatenobjekt dimagsim-{run}-f1 [] : test.txt inserted<br/>\nok: Protokollobjekt {p1} [] : Protokoll zu dimagsim-{run}-s\ndimag-sim structure inserted<br/>\nok: Protokollobjekt {p2} [] : Protokoll zu {root}\n{root_titel} updated<br/>\nok: Protokollobjekt {p3} [] : Protokoll zu dimagsim-{run}-o\ndimag-sim delivery inserted<br/>\nok: Protokollobjekt {p4} [] : Protokoll zu dimagsim-{run}-r1\nDateien inserted<br/>\nok: Protokollobjekt {p5} [] : Protokoll zu dimagsim-{run}-r2\nDateien 2 inserted<br/>\n"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:importDoc><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}/1/load-xml.xml</param2></ns1:importDoc></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:importDocResponse><status>200</status><msg>Success: processControlAndProtocolXML(): ok: Strukturobjekt dimagsim-{run}-s [{root_signatur} dimagsim] : dimag-sim structure inserted&lt;br/&gt;\nok: Informationsobjekt dimagsim-{run}-o [] : dimag-sim delivery inserted&lt;br/&gt;\nok: Repräsentation dimagsim-{run}-r1 [] : Dateien inserted&lt;br/&gt;\nok: Repräsentation dimagsim-{run}-r2 [] : Dateien 2 inserted&lt;br/&gt;\nok: Primärdatenobjekt dimagsim-{run}-f1 [] : test.txt inserted&lt;br/&gt;\nok: Protokollobjekt {p1} [] : Protokoll zu dimagsim-{run}-s\ndimag-sim structure inserted&lt;br/&gt;\nok: Protokollobjekt {p2} [] : Protokoll zu {root}\n{root_titel} updated&lt;br/&gt;\nok: Protokollobjekt {p3} [] : Protokoll zu dimagsim-{run}-o\ndimag-sim delivery inserted&lt;br/&gt;\nok: Protokollobjekt {p4} [] : Protokoll zu dimagsim-{run}-r1\nDateien inserted&lt;br/&gt;\nok: Protokollobjekt {p5} [] : Protokoll zu dimagsim-{run}-r2\nDateien 2 inserted&lt;br/&gt;\n</msg></ns1:importDocResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "import_tree_dir",
+            "note": "does DIMAG leave the files on the SFTP?",
+            "error": "TypeError: sort(): Argument #1 ($array) must be of type array, null given",
+            "args": [],
+            "result": null
+        },
+        {
+            "id": "import_again_put",
+            "type": "sftp",
+            "action": "put",
+            "path": "/Import/dimagsim-{run}/1b/load-xml.xml",
+            "ok": true,
+            "md5": "dd5b2e0cdd9991b740382f2438637def"
+        },
+        {
+            "id": "import_again",
+            "type": "soap",
+            "operation": "importDoc",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}/1b/load-xml.xml"
+            ],
+            "result": {
+                "status": "400",
+                "msg": "Error: processControlAndProtocolXML(): Error: File  dimagsim-{run}/1/test.txt not present in import package"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:importDoc><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}/1b/load-xml.xml</param2></ns1:importDoc></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:importDocResponse><status>400</status><msg>Error: processControlAndProtocolXML(): Error: File  dimagsim-{run}/1/test.txt not present in import package</msg></ns1:importDocResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "import_update_title_put",
+            "type": "sftp",
+            "action": "put",
+            "path": "/Import/dimagsim-{run}/2/load-xml.xml",
+            "ok": true,
+            "md5": "9984c00a8cff2edd5d4614c42cb07445"
+        },
+        {
+            "id": "import_update_title",
+            "type": "soap",
+            "operation": "importDoc",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}/2/load-xml.xml"
+            ],
+            "result": {
+                "status": "200",
+                "msg": "Success: processControlAndProtocolXML(): ok: Informationsobjekt dimagsim-{run}-o [] : dimag-sim delivery renamed updated<br/>\n"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:importDoc><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}/2/load-xml.xml</param2></ns1:importDoc></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:importDocResponse><status>200</status><msg>Success: processControlAndProtocolXML(): ok: Informationsobjekt dimagsim-{run}-o [] : dimag-sim delivery renamed updated&lt;br/&gt;\n</msg></ns1:importDocResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "import_type_change_put",
+            "type": "sftp",
+            "action": "put",
+            "path": "/Import/dimagsim-{run}/3/load-xml.xml",
+            "ok": true,
+            "md5": "680fa429f68f75ab966976daaf9b42f8"
+        },
+        {
+            "id": "import_type_change",
+            "note": "type of an existing object cannot change",
+            "type": "soap",
+            "operation": "importDoc",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}/3/load-xml.xml"
+            ],
+            "result": {
+                "status": "400",
+                "msg": "Error: processControlAndProtocolXML(): Err: Der Typ eines Objektes kann nicht geändert werden."
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:importDoc><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}/3/load-xml.xml</param2></ns1:importDoc></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:importDocResponse><status>400</status><msg>Error: processControlAndProtocolXML(): Err: Der Typ eines Objektes kann nicht geändert werden.</msg></ns1:importDocResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "file_bad_put",
+            "type": "sftp",
+            "action": "put",
+            "path": "/Import/dimagsim-{run}/4/bad.txt",
+            "ok": true,
+            "md5": "e37ba5037b8c73b8b4ff80201778c4eb"
+        },
+        {
+            "id": "import_md5_mismatch_put",
+            "type": "sftp",
+            "action": "put",
+            "path": "/Import/dimagsim-{run}/4/load-xml.xml",
+            "ok": true,
+            "md5": "620e6c50cb463af45ba98fa9e6afd41e"
+        },
+        {
+            "id": "import_md5_mismatch",
+            "type": "soap",
+            "operation": "importDoc",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}/4/load-xml.xml"
+            ],
+            "result": {
+                "status": "400",
+                "msg": "Error: processControlAndProtocolXML(): Error: md5 mismatch"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:importDoc><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}/4/load-xml.xml</param2></ns1:importDoc></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:importDocResponse><status>400</status><msg>Error: processControlAndProtocolXML(): Error: md5 mismatch</msg></ns1:importDocResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "import_missing_file_put",
+            "type": "sftp",
+            "action": "put",
+            "path": "/Import/dimagsim-{run}/5/load-xml.xml",
+            "ok": true,
+            "md5": "58954170e34e5f53d92d08962dba9bf1"
+        },
+        {
+            "id": "import_missing_file",
+            "type": "soap",
+            "operation": "importDoc",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}/5/load-xml.xml"
+            ],
+            "result": {
+                "status": "400",
+                "msg": "Error: processControlAndProtocolXML(): Error: File  dimagsim-{run}/5/missing.txt not present in import package"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:importDoc><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}/5/load-xml.xml</param2></ns1:importDoc></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:importDocResponse><status>400</status><msg>Error: processControlAndProtocolXML(): Error: File  dimagsim-{run}/5/missing.txt not present in import package</msg></ns1:importDocResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "import_o_without_period_put",
+            "type": "sftp",
+            "action": "put",
+            "path": "/Import/dimagsim-{run}/6/load-xml.xml",
+            "ok": true,
+            "md5": "6d24d16053966167b893b699afe990f7"
+        },
+        {
+            "id": "import_o_without_period",
+            "note": "O needs entstehungs-zeitraum",
+            "type": "soap",
+            "operation": "importDoc",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}/6/load-xml.xml"
+            ],
+            "result": {
+                "status": "400",
+                "msg": "Error: processControlAndProtocolXML(): Insert field failure for title='no period': Err: content for mandatory XML-field='entstehungs-zeitraum' missing"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:importDoc><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}/6/load-xml.xml</param2></ns1:importDoc></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:importDocResponse><status>400</status><msg>Error: processControlAndProtocolXML(): Insert field failure for title='no period': Err: content for mandatory XML-field='entstehungs-zeitraum' missing</msg></ns1:importDocResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "import_unknown_pid_put",
+            "type": "sftp",
+            "action": "put",
+            "path": "/Import/dimagsim-{run}/7/load-xml.xml",
+            "ok": true,
+            "md5": "661fab1928f65c7b52a10517fd60e05c"
+        },
+        {
+            "id": "import_unknown_pid",
+            "type": "soap",
+            "operation": "importDoc",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}/7/load-xml.xml"
+            ],
+            "result": {
+                "status": "400",
+                "msg": "Error: processControlAndProtocolXML(): getMyAcc(): type of AID is no string"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:importDoc><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}/7/load-xml.xml</param2></ns1:importDoc></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:importDocResponse><status>400</status><msg>Error: processControlAndProtocolXML(): getMyAcc(): type of AID is no string</msg></ns1:importDocResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "import_no_control_file",
+            "type": "soap",
+            "operation": "importDoc",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}/none/load-xml.xml"
+            ],
+            "result": {
+                "status": "404",
+                "msg": "No controlfile found under the following path: {sftp_dir}/dimagsim-{run}/none/load-xml.xml"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:importDoc><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}/none/load-xml.xml</param2></ns1:importDoc></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:importDocResponse><status>404</status><msg>No controlfile found under the following path: {sftp_dir}/dimagsim-{run}/none/load-xml.xml</msg></ns1:importDocResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "bad_xml_put",
+            "type": "sftp",
+            "action": "put",
+            "path": "/Import/dimagsim-{run}/8/load-xml.xml",
+            "ok": true,
+            "md5": "b42e042e7ff115c17bf4413a777ff2b8"
+        },
+        {
+            "id": "import_bad_xml",
+            "type": "soap",
+            "operation": "importDoc",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}/8/load-xml.xml"
+            ],
+            "result": {
+                "status": "404",
+                "msg": "The controlfile '{sftp_dir}/dimagsim-{run}/8/load-xml.xml' is invalid: <br/>\n<b>Error 1872</b>: The document has no document element. on line <b>-1</b>\n"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:importDoc><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}/8/load-xml.xml</param2></ns1:importDoc></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:importDocResponse><status>404</status><msg>The controlfile '{sftp_dir}/dimagsim-{run}/8/load-xml.xml' is invalid: &lt;br/&gt;\n&lt;b&gt;Error 1872&lt;/b&gt;: The document has no document element. on line &lt;b&gt;-1&lt;/b&gt;\n</msg></ns1:importDocResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "changed_since",
+            "note": "lists every object of the account changed since the run started, other users' objects included",
+            "type": "soap",
+            "operation": "getObjectsChangedSince",
+            "account": "user",
+            "args": [
+                "{datetime}"
+            ],
+            "result": {
+                "status": "200",
+                "msg": "found some objects",
+                "hits": "5",
+                "aIDList": "dimagsim-{run}-s;dimagsim-{run}-r2;dimagsim-{run}-r1;dimagsim-{run}-o;dimagsim-{run}-f1"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getObjectsChangedSince><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">{datetime}</param2></ns1:getObjectsChangedSince></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:getObjectsChangedSinceResponse><status>200</status><msg>found some objects</msg><hits>5</hits><aIDList>dimagsim-{run}-s;dimagsim-{run}-r2;dimagsim-{run}-r1;dimagsim-{run}-o;dimagsim-{run}-f1</aIDList></ns1:getObjectsChangedSinceResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "kv_aid",
+            "type": "soap",
+            "operation": "getAIDforKeyValue",
+            "account": "user",
+            "args": [
+                "aid",
+                "dimagsim-{run}-%",
+                "File"
+            ],
+            "result": {
+                "status": "200",
+                "msg": "found some objects",
+                "hits": "1",
+                "aIDList": "dimagsim-{run}-f1"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getAIDforKeyValue><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">aid</param2><param3 xsi:type=\"xsd:string\">dimagsim-{run}-%</param3><param4 xsi:type=\"xsd:string\">File</param4></ns1:getAIDforKeyValue></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:getAIDforKeyValueResponse><status>200</status><msg>found some objects</msg><hits>1</hits><aIDList>dimagsim-{run}-f1</aIDList></ns1:getAIDforKeyValueResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "kv_aid_any",
+            "type": "soap",
+            "operation": "getAIDforKeyValue",
+            "account": "user",
+            "args": [
+                "aid",
+                "dimagsim-{run}-%",
+                "Any"
+            ],
+            "result": {
+                "status": "200",
+                "msg": "found some objects",
+                "hits": "5",
+                "aIDList": "dimagsim-{run}-f1;dimagsim-{run}-o;dimagsim-{run}-r1;dimagsim-{run}-r2;dimagsim-{run}-s"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getAIDforKeyValue><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">aid</param2><param3 xsi:type=\"xsd:string\">dimagsim-{run}-%</param3><param4 xsi:type=\"xsd:string\">Any</param4></ns1:getAIDforKeyValue></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:getAIDforKeyValueResponse><status>200</status><msg>found some objects</msg><hits>5</hits><aIDList>dimagsim-{run}-f1;dimagsim-{run}-o;dimagsim-{run}-r1;dimagsim-{run}-r2;dimagsim-{run}-s</aIDList></ns1:getAIDforKeyValueResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "kv_aid_star",
+            "note": "Inge getAidsWithPrefix",
+            "type": "soap",
+            "operation": "getAIDforKeyValue",
+            "account": "user",
+            "args": [
+                "aid",
+                "dimagsim-{run}-*",
+                "File"
+            ],
+            "result": {
+                "status": "200",
+                "msg": "nothing appropriate found",
+                "hits": "0",
+                "aIDList": ""
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getAIDforKeyValue><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">aid</param2><param3 xsi:type=\"xsd:string\">dimagsim-{run}-*</param3><param4 xsi:type=\"xsd:string\">File</param4></ns1:getAIDforKeyValue></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:getAIDforKeyValueResponse><status>200</status><msg>nothing appropriate found</msg><hits>0</hits><aIDList></aIDList></ns1:getAIDforKeyValueResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "kv_aid_exact",
+            "note": "Inge getAidForKeyValue",
+            "type": "soap",
+            "operation": "getAIDforKeyValue",
+            "account": "user",
+            "args": [
+                "aid",
+                "dimagsim-{run}-f1",
+                "File"
+            ],
+            "result": {
+                "status": "200",
+                "msg": "found some objects",
+                "hits": "1",
+                "aIDList": "dimagsim-{run}-f1"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getAIDforKeyValue><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">aid</param2><param3 xsi:type=\"xsd:string\">dimagsim-{run}-f1</param3><param4 xsi:type=\"xsd:string\">File</param4></ns1:getAIDforKeyValue></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:getAIDforKeyValueResponse><status>200</status><msg>found some objects</msg><hits>1</hits><aIDList>dimagsim-{run}-f1</aIDList></ns1:getAIDforKeyValueResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "kv_md5",
+            "note": "Inge ChecksumController",
+            "type": "soap",
+            "operation": "getAIDforKeyValue",
+            "account": "user",
+            "args": [
+                "md5",
+                "84db056a04df275312b977ca2d910a49",
+                "File"
+            ],
+            "result": {
+                "status": "200",
+                "msg": "found some objects",
+                "hits": "1",
+                "aIDList": "dimagsim-{run}-f1"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getAIDforKeyValue><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">md5</param2><param3 xsi:type=\"xsd:string\">84db056a04df275312b977ca2d910a49</param3><param4 xsi:type=\"xsd:string\">File</param4></ns1:getAIDforKeyValue></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:getAIDforKeyValueResponse><status>200</status><msg>found some objects</msg><hits>1</hits><aIDList>dimagsim-{run}-f1</aIDList></ns1:getAIDforKeyValueResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "kv_title_struct",
+            "type": "soap",
+            "operation": "getAIDforKeyValue",
+            "account": "user",
+            "args": [
+                "titel",
+                "dimag-sim structure",
+                "Struct"
+            ],
+            "result": {
+                "status": "200",
+                "msg": "found some objects",
+                "hits": "1",
+                "aIDList": "dimagsim-{run}-s"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getAIDforKeyValue><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">titel</param2><param3 xsi:type=\"xsd:string\">dimag-sim structure</param3><param4 xsi:type=\"xsd:string\">Struct</param4></ns1:getAIDforKeyValue></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:getAIDforKeyValueResponse><status>200</status><msg>found some objects</msg><hits>1</hits><aIDList>dimagsim-{run}-s</aIDList></ns1:getAIDforKeyValueResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "export_meta",
+            "note": "Inge exportMetadata",
+            "type": "soap",
+            "operation": "exportDoc",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-s",
+                "all",
+                false,
+                true,
+                false
+            ],
+            "result": {
+                "status": "200",
+                "msg": "arguments: aid=dimagsim-{run}-s; RepOptions=all; withStruct=false; ControlFileOnly=true; LogFile=false; \nNumber Objects exported: 5\n",
+                "ControlFile": "/Export/{date}/{export}/verz_obj.xml"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:exportDoc><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-s</param2><param3 xsi:type=\"xsd:string\">all</param3><param4 xsi:type=\"xsd:boolean\">false</param4><param5 xsi:type=\"xsd:boolean\">true</param5><param6 xsi:type=\"xsd:boolean\">false</param6></ns1:exportDoc></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:exportDocResponse><status>200</status><msg>arguments: aid=dimagsim-{run}-s; RepOptions=all; withStruct=false; ControlFileOnly=true; LogFile=false; \nNumber Objects exported: 5\n</msg><ControlFile>/Export/{date}/{export}/verz_obj.xml</ControlFile></ns1:exportDocResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "export_meta_get",
+            "note": "path below sftp_root, as Inge reads it",
+            "type": "sftp",
+            "action": "get",
+            "path": "/Import/Export/{date}/{export}/verz_obj.xml",
+            "ok": true,
+            "content": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- DIMAG loadxml -->\n<verzeichnungseinheit>\n\n\n\t<verz-obj>\n\t\t<aenderungs-datum>{datetime}</aenderungs-datum>\n\t\t<aid>dimagsim-{run}-s</aid>\n\t\t<alternate-id>{uuid}</alternate-id>\n\t\t<ersteller>{user}</ersteller>\n\t\t<erstellungs-datum>{datetime}</erstellungs-datum>\n\t\t<geaendert-durch>{user}</geaendert-durch>\n\t\t<merkmal>Serie</merkmal>\n\t\t<metadaten-version>2023-08-21</metadaten-version>\n\t\t<pid>{root}</pid>\n\t\t<signatur>{root_signatur} dimagsim</signatur>\n\t\t<signatur-anteil>dimagsim</signatur-anteil>\n\t\t<status-code>10</status-code>\n\t\t<titel>dimag-sim structure</titel>\n\t\t<typ>S</typ>\n\t\t<versions-nummer>1</versions-nummer>\n\t\t<verz-obj>\n\t\t\t<aenderungs-datum>{datetime}</aenderungs-datum>\n\t\t\t<aid>dimagsim-{run}-o</aid>\n\t\t\t<alternate-id>{uuid}</alternate-id>\n\t\t\t<entstehungs-zeitraum>2026</entstehungs-zeitraum>\n\t\t\t<ersteller>{user}</ersteller>\n\t\t\t<erstellungs-datum>{datetime}</erstellungs-datum>\n\t\t\t<geaendert-durch>{user}</geaendert-durch>\n\t\t\t<metadaten-version>2023-08-21</metadaten-version>\n\t\t\t<pid>dimagsim-{run}-s</pid>\n\t\t\t<status-code>10</status-code>\n\t\t\t<titel>dimag-sim delivery renamed</titel>\n\t\t\t<typ>O</typ>\n\t\t\t<versions-nummer>1</versions-nummer>\n\t\t\t<verz-obj>\n\t\t\t\t<aenderungs-datum>{datetime}</aenderungs-datum>\n\t\t\t\t<aid>dimagsim-{run}-r1</aid>\n\t\t\t\t<alternate-id>{uuid}</alternate-id>\n\t\t\t\t<ersteller>{user}</ersteller>\n\t\t\t\t<erstellungs-datum>{datetime}</erstellungs-datum>\n\t\t\t\t<geaendert-durch>{user}</geaendert-durch>\n\t\t\t\t<metadaten-version>2023-08-21</metadaten-version>\n\t\t\t\t<pid>dimagsim-{run}-o</pid>\n\t\t\t\t<status-code>10</status-code>\n\t\t\t\t<titel>Dateien</titel>\n\t\t\t\t<typ>R</typ>\n\t\t\t\t<versions-nummer>1</versions-nummer>\n\t\t\t\t<verz-obj>\n\t\t\t\t\t<aenderungs-datum>{datetime}</aenderungs-datum>\n\t\t\t\t\t<aenderungs-datum-datei>{datetime}</aenderungs-datum-datei>\n\t\t\t\t\t<aid>dimagsim-{run}-f1</aid>\n\t\t\t\t\t<alternate-id>{uuid}</alternate-id>\n\t\t\t\t\t<datei-format>text/plain; charset=US-ASCII</datei-format>\n\t\t\t\t\t<datei-groesse-in-byte>1050</datei-groesse-in-byte>\n\t\t\t\t\t<dateiname>test.txt</dateiname>\n\t\t\t\t\t<daten-format>ASCII</daten-format>\n\t\t\t\t\t<ersteller>{user}</ersteller>\n\t\t\t\t\t<erstellungs-datum>{datetime}</erstellungs-datum>\n\t\t\t\t\t<geaendert-durch>{user}</geaendert-durch>\n\t\t\t\t\t<jhoveformat>ASCII</jhoveformat>\n\t\t\t\t\t<md5>84db056a04df275312b977ca2d910a49</md5>\n\t\t\t\t\t<metadaten-version>2023-08-21</metadaten-version>\n\t\t\t\t\t<pid>dimagsim-{run}-r1</pid>\n\t\t\t\t\t<pronom-signature>DROID_SignatureFile_V119.xml</pronom-signature>\n\t\t\t\t\t<puidformat>Das Format konnte nicht identifiziert werden!</puidformat>\n\t\t\t\t\t<sftp-dateiname>dimagsim-{run}-f1</sftp-dateiname>\n\t\t\t\t\t<status-code>10</status-code>\n\t\t\t\t\t<titel>test.txt</titel>\n\t\t\t\t\t<typ>F</typ>\n\t\t\t\t\t<versions-nummer>1</versions-nummer>\n\t\t\t\t</verz-obj>\n\t\t\t</verz-obj>\n\t\t\t<verz-obj>\n\t\t\t\t<aenderungs-datum>{datetime}</aenderungs-datum>\n\t\t\t\t<aid>dimagsim-{run}-r2</aid>\n\t\t\t\t<alternate-id>{uuid}</alternate-id>\n\t\t\t\t<ersteller>{user}</ersteller>\n\t\t\t\t<erstellungs-datum>{datetime}</erstellungs-datum>\n\t\t\t\t<geaendert-durch>{user}</geaendert-durch>\n\t\t\t\t<metadaten-version>2023-08-21</metadaten-version>\n\t\t\t\t<pid>dimagsim-{run}-o</pid>\n\t\t\t\t<status-code>10</status-code>\n\t\t\t\t<titel>Dateien 2</titel>\n\t\t\t\t<typ>R</typ>\n\t\t\t\t<versions-nummer>1</versions-nummer>\n\t\t\t</verz-obj>\n\t\t</verz-obj>\n\t</verz-obj>\n\n\n\n</verzeichnungseinheit>",
+            "md5": "04ac1db766848f494631725759f75d60"
+        },
+        {
+            "id": "export_meta_get_abs",
+            "note": "probe: path below the SFTP login directory",
+            "type": "sftp",
+            "action": "get",
+            "path": "/Export/{date}/{export}/verz_obj.xml",
+            "ok": false,
+            "content": null,
+            "md5": null
+        },
+        {
+            "id": "export_meta_list",
+            "type": "sftp",
+            "action": "list",
+            "path": "/Import/Export/{date}/{export}",
+            "ok": true,
+            "entries": [
+                "verz_obj.xml"
+            ]
+        },
+        {
+            "id": "export_doc",
+            "note": "Inge exportDoc / getStatusForAid",
+            "type": "soap",
+            "operation": "exportDoc",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-f1",
+                "last",
+                false,
+                false,
+                true
+            ],
+            "result": {
+                "status": "200",
+                "msg": "arguments: aid=dimagsim-{run}-f1; RepOptions=last; withStruct=false; ControlFileOnly=false; LogFile=true; \nNumber Objects exported: 1\n",
+                "ControlFile": "/Export/{date}/{export}/verz_obj.xml"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:exportDoc><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-f1</param2><param3 xsi:type=\"xsd:string\">last</param3><param4 xsi:type=\"xsd:boolean\">false</param4><param5 xsi:type=\"xsd:boolean\">false</param5><param6 xsi:type=\"xsd:boolean\">true</param6></ns1:exportDoc></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:exportDocResponse><status>200</status><msg>arguments: aid=dimagsim-{run}-f1; RepOptions=last; withStruct=false; ControlFileOnly=false; LogFile=true; \nNumber Objects exported: 1\n</msg><ControlFile>/Export/{date}/{export}/verz_obj.xml</ControlFile></ns1:exportDocResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "export_doc_list",
+            "type": "sftp",
+            "action": "list",
+            "path": "/Import/Export/{date}/{export}",
+            "ok": true,
+            "entries": [
+                "dimagsim-{run}-f1",
+                "dimagsim-{run}-f1.xml",
+                "verz_obj.xml"
+            ]
+        },
+        {
+            "id": "export_data",
+            "note": "Inge exportWithData",
+            "type": "soap",
+            "operation": "exportDoc",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-f1",
+                "all",
+                false,
+                false,
+                false
+            ],
+            "result": {
+                "status": "200",
+                "msg": "arguments: aid=dimagsim-{run}-f1; RepOptions=all; withStruct=false; ControlFileOnly=false; LogFile=false; \nNumber Objects exported: 1\n",
+                "ControlFile": "/Export/{date}/{export}/verz_obj.xml"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:exportDoc><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-f1</param2><param3 xsi:type=\"xsd:string\">all</param3><param4 xsi:type=\"xsd:boolean\">false</param4><param5 xsi:type=\"xsd:boolean\">false</param5><param6 xsi:type=\"xsd:boolean\">false</param6></ns1:exportDoc></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:exportDocResponse><status>200</status><msg>arguments: aid=dimagsim-{run}-f1; RepOptions=all; withStruct=false; ControlFileOnly=false; LogFile=false; \nNumber Objects exported: 1\n</msg><ControlFile>/Export/{date}/{export}/verz_obj.xml</ControlFile></ns1:exportDocResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "export_data_list",
+            "type": "sftp",
+            "action": "list",
+            "path": "/Import/Export/{date}/{export}",
+            "ok": true,
+            "entries": [
+                "dimagsim-{run}-f1",
+                "dimagsim-{run}-f1.xml",
+                "verz_obj.xml"
+            ]
+        },
+        {
+            "id": "export_data_file",
+            "type": "sftp",
+            "action": "get",
+            "path": "/Import/Export/{date}/{export}/dimagsim-{run}-f1",
+            "ok": true,
+            "content": "dimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\ndimag-sim synthetic test file\n",
+            "md5": "84db056a04df275312b977ca2d910a49"
+        },
+        {
+            "id": "export_data_meta",
+            "type": "sftp",
+            "action": "get",
+            "path": "/Import/Export/{date}/{export}/dimagsim-{run}-f1.xml",
+            "ok": true,
+            "content": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- DIMAG metadata -->\n<metadaten>\n  <allgemeine>\n    <aenderungs-datum>{datetime}</aenderungs-datum>\n    <aid>dimagsim-{run}-f1</aid>\n    <alternate-id>{uuid}</alternate-id>\n    <datei-format>text/plain; charset=US-ASCII</datei-format>\n    <dateiname>test.txt</dateiname>\n    <ersteller>{user}</ersteller>\n    <erstellungs-datum>{datetime}</erstellungs-datum>\n    <geaendert-durch>{user}</geaendert-durch>\n    <metadaten-version>2023-08-21</metadaten-version>\n    <pid>dimagsim-{run}-r1</pid>\n    <status-code>10</status-code>\n    <titel>test.txt</titel>\n    <typ>F</typ>\n    <versions-nummer>1</versions-nummer>\n  </allgemeine>\n  <spezifische>\n    <aenderungs-datum-datei>{datetime}</aenderungs-datum-datei>\n    <datei-groesse-in-byte>1050</datei-groesse-in-byte>\n    <daten-format>ASCII</daten-format>\n    <jhoveformat>ASCII</jhoveformat>\n    <md5>84db056a04df275312b977ca2d910a49</md5>\n    <pronom-signature>DROID_SignatureFile_V119.xml</pronom-signature>\n    <puidformat>Das Format konnte nicht identifiziert werden!</puidformat>\n  </spezifische>\n</metadaten>\n",
+            "md5": "a433a44fe63e68203b329b29d587234f"
+        },
+        {
+            "id": "export_struct",
+            "note": "withStruct=true",
+            "type": "soap",
+            "operation": "exportDoc",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-r1",
+                "all",
+                true,
+                true,
+                false
+            ],
+            "result": {
+                "status": "200",
+                "msg": "arguments: aid=dimagsim-{run}-r1; RepOptions=all; withStruct=true; ControlFileOnly=true; LogFile=false; \nNumber Objects exported: 8\n",
+                "ControlFile": "/Export/{date}/{export}/verz_obj.xml"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:exportDoc><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-r1</param2><param3 xsi:type=\"xsd:string\">all</param3><param4 xsi:type=\"xsd:boolean\">true</param4><param5 xsi:type=\"xsd:boolean\">true</param5><param6 xsi:type=\"xsd:boolean\">false</param6></ns1:exportDoc></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:exportDocResponse><status>200</status><msg>arguments: aid=dimagsim-{run}-r1; RepOptions=all; withStruct=true; ControlFileOnly=true; LogFile=false; \nNumber Objects exported: 8\n</msg><ControlFile>/Export/{date}/{export}/verz_obj.xml</ControlFile></ns1:exportDocResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "export_struct_get",
+            "type": "sftp",
+            "action": "get",
+            "path": "/Import/Export/{date}/{export}/verz_obj.xml",
+            "ok": true,
+            "content": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- DIMAG loadxml -->\n<verzeichnungseinheit>\n\t\t\t\t<verz-obj>\n\t\t\t\t\t<aenderungs-datum>{redacted}</aenderungs-datum>\n\t\t\t\t\t<aid>{root}</aid>\n\t\t\t\t\t<alternate-id>{redacted}</alternate-id>\n\t\t\t\t\t<beschreibung-inhalt>{redacted}</beschreibung-inhalt>\n\t\t\t\t\t<ersteller>{user}</ersteller>\n\t\t\t\t\t<erstellungs-datum>{redacted}</erstellungs-datum>\n\t\t\t\t\t<geaendert-durch>{user}</geaendert-durch>\n\t\t\t\t\t<merkmal>{redacted}</merkmal>\n\t\t\t\t\t<metadaten-version>{redacted}</metadaten-version>\n\t\t\t\t\t<pid>{redacted}</pid>\n\t\t\t\t\t<signatur-anteil>{redacted}</signatur-anteil>\n\t\t\t\t\t<status-code>10</status-code>\n\t\t\t\t\t<titel>{redacted}</titel>\n\t\t\t\t\t<typ>S</typ>\n\t\t\t\t\t<versions-nummer>{redacted}</versions-nummer>\n\t\t\t\t\t<verz-obj>\n\t\t\t\t\t\t<aenderungs-datum>{datetime}</aenderungs-datum>\n\t\t\t\t\t\t<aid>dimagsim-{run}-s</aid>\n\t\t\t\t\t\t<alternate-id>{uuid}</alternate-id>\n\t\t\t\t\t\t<ersteller>{user}</ersteller>\n\t\t\t\t\t\t<erstellungs-datum>{datetime}</erstellungs-datum>\n\t\t\t\t\t\t<geaendert-durch>{user}</geaendert-durch>\n\t\t\t\t\t\t<merkmal>Serie</merkmal>\n\t\t\t\t\t\t<metadaten-version>2023-08-21</metadaten-version>\n\t\t\t\t\t\t<pid>{root}</pid>\n\t\t\t\t\t\t<signatur>{root_signatur} dimagsim</signatur>\n\t\t\t\t\t\t<signatur-anteil>dimagsim</signatur-anteil>\n\t\t\t\t\t\t<status-code>10</status-code>\n\t\t\t\t\t\t<titel>dimag-sim structure</titel>\n\t\t\t\t\t\t<typ>S</typ>\n\t\t\t\t\t\t<versions-nummer>1</versions-nummer>\n\t\t\t\t\t\t<verz-obj>\n\t\t\t\t\t\t\t<aenderungs-datum>{datetime}</aenderungs-datum>\n\t\t\t\t\t\t\t<aid>dimagsim-{run}-o</aid>\n\t\t\t\t\t\t\t<alternate-id>{uuid}</alternate-id>\n\t\t\t\t\t\t\t<entstehungs-zeitraum>2026</entstehungs-zeitraum>\n\t\t\t\t\t\t\t<ersteller>{user}</ersteller>\n\t\t\t\t\t\t\t<erstellungs-datum>{datetime}</erstellungs-datum>\n\t\t\t\t\t\t\t<geaendert-durch>{user}</geaendert-durch>\n\t\t\t\t\t\t\t<metadaten-version>2023-08-21</metadaten-version>\n\t\t\t\t\t\t\t<pid>dimagsim-{run}-s</pid>\n\t\t\t\t\t\t\t<status-code>10</status-code>\n\t\t\t\t\t\t\t<titel>dimag-sim delivery renamed</titel>\n\t\t\t\t\t\t\t<typ>O</typ>\n\t\t\t\t\t\t\t<versions-nummer>1</versions-nummer>\n\n\t\t\t\t\t\t\t<verz-obj>\n\t\t\t\t\t\t\t\t<aenderungs-datum>{datetime}</aenderungs-datum>\n\t\t\t\t\t\t\t\t<aid>dimagsim-{run}-r1</aid>\n\t\t\t\t\t\t\t\t<alternate-id>{uuid}</alternate-id>\n\t\t\t\t\t\t\t\t<ersteller>{user}</ersteller>\n\t\t\t\t\t\t\t\t<erstellungs-datum>{datetime}</erstellungs-datum>\n\t\t\t\t\t\t\t\t<geaendert-durch>{user}</geaendert-durch>\n\t\t\t\t\t\t\t\t<metadaten-version>2023-08-21</metadaten-version>\n\t\t\t\t\t\t\t\t<pid>dimagsim-{run}-o</pid>\n\t\t\t\t\t\t\t\t<status-code>10</status-code>\n\t\t\t\t\t\t\t\t<titel>Dateien</titel>\n\t\t\t\t\t\t\t\t<typ>R</typ>\n\t\t\t\t\t\t\t\t<versions-nummer>1</versions-nummer>\n\t\t\t\t\t\t\t\t<verz-obj>\n\t\t\t\t\t\t\t\t\t<aenderungs-datum>{datetime}</aenderungs-datum>\n\t\t\t\t\t\t\t\t\t<aenderungs-datum-datei>{datetime}</aenderungs-datum-datei>\n\t\t\t\t\t\t\t\t\t<aid>dimagsim-{run}-f1</aid>\n\t\t\t\t\t\t\t\t\t<alternate-id>{uuid}</alternate-id>\n\t\t\t\t\t\t\t\t\t<datei-format>text/plain; charset=US-ASCII</datei-format>\n\t\t\t\t\t\t\t\t\t<datei-groesse-in-byte>1050</datei-groesse-in-byte>\n\t\t\t\t\t\t\t\t\t<dateiname>test.txt</dateiname>\n\t\t\t\t\t\t\t\t\t<daten-format>ASCII</daten-format>\n\t\t\t\t\t\t\t\t\t<ersteller>{user}</ersteller>\n\t\t\t\t\t\t\t\t\t<erstellungs-datum>{datetime}</erstellungs-datum>\n\t\t\t\t\t\t\t\t\t<geaendert-durch>{user}</geaendert-durch>\n\t\t\t\t\t\t\t\t\t<jhoveformat>ASCII</jhoveformat>\n\t\t\t\t\t\t\t\t\t<md5>84db056a04df275312b977ca2d910a49</md5>\n\t\t\t\t\t\t\t\t\t<metadaten-version>2023-08-21</metadaten-version>\n\t\t\t\t\t\t\t\t\t<pid>dimagsim-{run}-r1</pid>\n\t\t\t\t\t\t\t\t\t<pronom-signature>DROID_SignatureFile_V119.xml</pronom-signature>\n\t\t\t\t\t\t\t\t\t<puidformat>Das Format konnte nicht identifiziert werden!</puidformat>\n\t\t\t\t\t\t\t\t\t<sftp-dateiname>dimagsim-{run}-f1</sftp-dateiname>\n\t\t\t\t\t\t\t\t\t<status-code>10</status-code>\n\t\t\t\t\t\t\t\t\t<titel>test.txt</titel>\n\t\t\t\t\t\t\t\t\t<typ>F</typ>\n\t\t\t\t\t\t\t\t\t<versions-nummer>1</versions-nummer>\n\t\t\t\t\t\t\t\t</verz-obj>\n\t\t\t\t\t\t\t</verz-obj>\n\n\n</verz-obj>\n</verz-obj>\n</verz-obj>\n</verz-obj>\n</verz-obj>\n</verz-obj>\n\n</verzeichnungseinheit>",
+            "md5": "97d5de6b6062bde874d99d9582b4e272"
+        },
+        {
+            "id": "finalize_f1",
+            "type": "soap",
+            "operation": "changeStatusCode",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-f1",
+                20
+            ],
+            "result": {
+                "status": "200",
+                "msg": "Success: processControlAndProtocolXML(): ok: Primärdatenobjekt dimagsim-{run}-f1 [] : test.txt updated<br/>\n"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:changeStatusCode><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-f1</param2><param3 xsi:type=\"xsd:int\">20</param3></ns1:changeStatusCode></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:changeStatuscodeResponse><status>200</status><msg>Success: processControlAndProtocolXML(): ok: Primärdatenobjekt dimagsim-{run}-f1 [] : test.txt updated&lt;br/&gt;\n</msg></ns1:changeStatuscodeResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "finalize_r1",
+            "type": "soap",
+            "operation": "changeStatusCode",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-r1",
+                20
+            ],
+            "result": {
+                "status": "200",
+                "msg": "Success: processControlAndProtocolXML(): ok: Repräsentation dimagsim-{run}-r1 [] : Dateien updated<br/>\n"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:changeStatusCode><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-r1</param2><param3 xsi:type=\"xsd:int\">20</param3></ns1:changeStatusCode></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:changeStatuscodeResponse><status>200</status><msg>Success: processControlAndProtocolXML(): ok: Repräsentation dimagsim-{run}-r1 [] : Dateien updated&lt;br/&gt;\n</msg></ns1:changeStatuscodeResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "finalize_o",
+            "type": "soap",
+            "operation": "changeStatusCode",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-o",
+                20
+            ],
+            "result": {
+                "status": "200",
+                "msg": "Success: processControlAndProtocolXML(): ok: Repräsentation dimagsim-{run}-r2 [] : Dateien 2 updated<br/>\nok: Informationsobjekt dimagsim-{run}-o [] : dimag-sim delivery renamed updated<br/>\n"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:changeStatusCode><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-o</param2><param3 xsi:type=\"xsd:int\">20</param3></ns1:changeStatusCode></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:changeStatuscodeResponse><status>200</status><msg>Success: processControlAndProtocolXML(): ok: Repräsentation dimagsim-{run}-r2 [] : Dateien 2 updated&lt;br/&gt;\nok: Informationsobjekt dimagsim-{run}-o [] : dimag-sim delivery renamed updated&lt;br/&gt;\n</msg></ns1:changeStatuscodeResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "finalize_s",
+            "type": "soap",
+            "operation": "changeStatusCode",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-s",
+                20
+            ],
+            "result": {
+                "status": "200",
+                "msg": "Success: processControlAndProtocolXML(): ok: Strukturobjekt dimagsim-{run}-s [{root_signatur} dimagsim] : dimag-sim structure updated<br/>\n"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:changeStatusCode><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-s</param2><param3 xsi:type=\"xsd:int\">20</param3></ns1:changeStatusCode></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:changeStatuscodeResponse><status>200</status><msg>Success: processControlAndProtocolXML(): ok: Strukturobjekt dimagsim-{run}-s [{root_signatur} dimagsim] : dimag-sim structure updated&lt;br/&gt;\n</msg></ns1:changeStatuscodeResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "finalize_again",
+            "type": "soap",
+            "operation": "changeStatusCode",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-f1",
+                20
+            ],
+            "result": {
+                "status": "200",
+                "msg": "Success: processControlAndProtocolXML(): ok: Primärdatenobjekt dimagsim-{run}-f1 [] : test.txt un-changed, thus update omitted<br/>\n"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:changeStatusCode><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-f1</param2><param3 xsi:type=\"xsd:int\">20</param3></ns1:changeStatusCode></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:changeStatuscodeResponse><status>200</status><msg>Success: processControlAndProtocolXML(): ok: Primärdatenobjekt dimagsim-{run}-f1 [] : test.txt un-changed, thus update omitted&lt;br/&gt;\n</msg></ns1:changeStatuscodeResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "status_back_to_10",
+            "type": "soap",
+            "operation": "changeStatusCode",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-f1",
+                10
+            ],
+            "result": {
+                "status": "400",
+                "msg": "Error: processControlAndProtocolXML(): Der Status kann nicht für alle tiefer liegenden Objekte geändert werden."
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:changeStatusCode><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-f1</param2><param3 xsi:type=\"xsd:int\">10</param3></ns1:changeStatusCode></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:changeStatuscodeResponse><status>400</status><msg>Error: processControlAndProtocolXML(): Der Status kann nicht für alle tiefer liegenden Objekte geändert werden.</msg></ns1:changeStatuscodeResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "status_invalid",
+            "type": "soap",
+            "operation": "changeStatusCode",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-f1",
+                99
+            ],
+            "result": {
+                "status": "400",
+                "msg": "Error: processControlAndProtocolXML(): Der Status kann nicht für alle tiefer liegenden Objekte geändert werden."
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:changeStatusCode><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-f1</param2><param3 xsi:type=\"xsd:int\">99</param3></ns1:changeStatusCode></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:changeStatuscodeResponse><status>400</status><msg>Error: processControlAndProtocolXML(): Der Status kann nicht für alle tiefer liegenden Objekte geändert werden.</msg></ns1:changeStatuscodeResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "status_unknown_aid",
+            "type": "soap",
+            "operation": "changeStatusCode",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-nothere",
+                20
+            ],
+            "result": {
+                "status": "402",
+                "msg": "An object with aID dimagsim-{run}-nothere does not exist"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:changeStatusCode><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-nothere</param2><param3 xsi:type=\"xsd:int\">20</param3></ns1:changeStatusCode></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:changeStatuscodeResponse><status>402</status><msg>An object with aID dimagsim-{run}-nothere does not exist</msg></ns1:changeStatuscodeResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "export_after_finalize",
+            "type": "soap",
+            "operation": "exportDoc",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-s",
+                "all",
+                false,
+                true,
+                false
+            ],
+            "result": {
+                "status": "200",
+                "msg": "arguments: aid=dimagsim-{run}-s; RepOptions=all; withStruct=false; ControlFileOnly=true; LogFile=false; \nNumber Objects exported: 5\n",
+                "ControlFile": "/Export/{date}/{export}/verz_obj.xml"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:exportDoc><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-s</param2><param3 xsi:type=\"xsd:string\">all</param3><param4 xsi:type=\"xsd:boolean\">false</param4><param5 xsi:type=\"xsd:boolean\">true</param5><param6 xsi:type=\"xsd:boolean\">false</param6></ns1:exportDoc></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:exportDocResponse><status>200</status><msg>arguments: aid=dimagsim-{run}-s; RepOptions=all; withStruct=false; ControlFileOnly=true; LogFile=false; \nNumber Objects exported: 5\n</msg><ControlFile>/Export/{date}/{export}/verz_obj.xml</ControlFile></ns1:exportDocResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "export_after_finalize_get",
+            "type": "sftp",
+            "action": "get",
+            "path": "/Import/Export/{date}/{export}/verz_obj.xml",
+            "ok": true,
+            "content": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- DIMAG loadxml -->\n<verzeichnungseinheit>\n\n\n\t<verz-obj>\n\t\t<aenderungs-datum>{datetime}</aenderungs-datum>\n\t\t<aid>dimagsim-{run}-s</aid>\n\t\t<alternate-id>{uuid}</alternate-id>\n\t\t<ersteller>{user}</ersteller>\n\t\t<erstellungs-datum>{datetime}</erstellungs-datum>\n\t\t<geaendert-durch>{user}</geaendert-durch>\n\t\t<merkmal>Serie</merkmal>\n\t\t<metadaten-version>2023-08-21</metadaten-version>\n\t\t<pid>{root}</pid>\n\t\t<signatur>{root_signatur} dimagsim</signatur>\n\t\t<signatur-anteil>dimagsim</signatur-anteil>\n\t\t<status-code>20</status-code>\n\t\t<titel>dimag-sim structure</titel>\n\t\t<typ>S</typ>\n\t\t<versions-nummer>1</versions-nummer>\n\t\t<verz-obj>\n\t\t\t<aenderungs-datum>{datetime}</aenderungs-datum>\n\t\t\t<aid>dimagsim-{run}-o</aid>\n\t\t\t<alternate-id>{uuid}</alternate-id>\n\t\t\t<entstehungs-zeitraum>2026</entstehungs-zeitraum>\n\t\t\t<ersteller>{user}</ersteller>\n\t\t\t<erstellungs-datum>{datetime}</erstellungs-datum>\n\t\t\t<geaendert-durch>{user}</geaendert-durch>\n\t\t\t<metadaten-version>2023-08-21</metadaten-version>\n\t\t\t<pid>dimagsim-{run}-s</pid>\n\t\t\t<status-code>20</status-code>\n\t\t\t<titel>dimag-sim delivery renamed</titel>\n\t\t\t<typ>O</typ>\n\t\t\t<versions-nummer>1</versions-nummer>\n\t\t\t<verz-obj>\n\t\t\t\t<aenderungs-datum>{datetime}</aenderungs-datum>\n\t\t\t\t<aid>dimagsim-{run}-r1</aid>\n\t\t\t\t<alternate-id>{uuid}</alternate-id>\n\t\t\t\t<ersteller>{user}</ersteller>\n\t\t\t\t<erstellungs-datum>{datetime}</erstellungs-datum>\n\t\t\t\t<geaendert-durch>{user}</geaendert-durch>\n\t\t\t\t<metadaten-version>2023-08-21</metadaten-version>\n\t\t\t\t<pid>dimagsim-{run}-o</pid>\n\t\t\t\t<status-code>20</status-code>\n\t\t\t\t<titel>Dateien</titel>\n\t\t\t\t<typ>R</typ>\n\t\t\t\t<versions-nummer>1</versions-nummer>\n\t\t\t\t<verz-obj>\n\t\t\t\t\t<aenderungs-datum>{datetime}</aenderungs-datum>\n\t\t\t\t\t<aenderungs-datum-datei>{datetime}</aenderungs-datum-datei>\n\t\t\t\t\t<aid>dimagsim-{run}-f1</aid>\n\t\t\t\t\t<alternate-id>{uuid}</alternate-id>\n\t\t\t\t\t<datei-format>text/plain; charset=US-ASCII</datei-format>\n\t\t\t\t\t<datei-groesse-in-byte>1050</datei-groesse-in-byte>\n\t\t\t\t\t<dateiname>test.txt</dateiname>\n\t\t\t\t\t<daten-format>ASCII</daten-format>\n\t\t\t\t\t<ersteller>{user}</ersteller>\n\t\t\t\t\t<erstellungs-datum>{datetime}</erstellungs-datum>\n\t\t\t\t\t<geaendert-durch>{user}</geaendert-durch>\n\t\t\t\t\t<jhoveformat>ASCII</jhoveformat>\n\t\t\t\t\t<md5>84db056a04df275312b977ca2d910a49</md5>\n\t\t\t\t\t<metadaten-version>2023-08-21</metadaten-version>\n\t\t\t\t\t<pid>dimagsim-{run}-r1</pid>\n\t\t\t\t\t<pronom-signature>DROID_SignatureFile_V119.xml</pronom-signature>\n\t\t\t\t\t<puidformat>Das Format konnte nicht identifiziert werden!</puidformat>\n\t\t\t\t\t<sftp-dateiname>dimagsim-{run}-f1</sftp-dateiname>\n\t\t\t\t\t<status-code>20</status-code>\n\t\t\t\t\t<titel>test.txt</titel>\n\t\t\t\t\t<typ>F</typ>\n\t\t\t\t\t<versions-nummer>1</versions-nummer>\n\t\t\t\t</verz-obj>\n\t\t\t</verz-obj>\n\t\t\t<verz-obj>\n\t\t\t\t<aenderungs-datum>{datetime}</aenderungs-datum>\n\t\t\t\t<aid>dimagsim-{run}-r2</aid>\n\t\t\t\t<alternate-id>{uuid}</alternate-id>\n\t\t\t\t<ersteller>{user}</ersteller>\n\t\t\t\t<erstellungs-datum>{datetime}</erstellungs-datum>\n\t\t\t\t<geaendert-durch>{user}</geaendert-durch>\n\t\t\t\t<metadaten-version>2023-08-21</metadaten-version>\n\t\t\t\t<pid>dimagsim-{run}-o</pid>\n\t\t\t\t<status-code>20</status-code>\n\t\t\t\t<titel>Dateien 2</titel>\n\t\t\t\t<typ>R</typ>\n\t\t\t\t<versions-nummer>1</versions-nummer>\n\t\t\t</verz-obj>\n\t\t</verz-obj>\n\t</verz-obj>\n\n\n\n</verzeichnungseinheit>",
+            "md5": "52dab0414fa5a75ad8ac4609926babc9"
+        },
+        {
+            "id": "file2_put",
+            "type": "sftp",
+            "action": "put",
+            "path": "/Import/dimagsim-{run}/9/second.txt",
+            "ok": true,
+            "md5": "e37ba5037b8c73b8b4ff80201778c4eb"
+        },
+        {
+            "id": "import_into_final_r_put",
+            "type": "sftp",
+            "action": "put",
+            "path": "/Import/dimagsim-{run}/9/load-xml.xml",
+            "ok": true,
+            "md5": "421cc5ade601fab6459c9e9b607515e3"
+        },
+        {
+            "id": "import_into_final_r",
+            "type": "soap",
+            "operation": "importDoc",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}/9/load-xml.xml"
+            ],
+            "result": {
+                "status": "200",
+                "msg": "Success: processControlAndProtocolXML(): ok: Primärdatenobjekt dimagsim-{run}-f2 [] : second.txt inserted<br/>\nok: Protokollobjekt {p4} [] : Protokoll zu dimagsim-{run}-r1\nDateien updated<br/>\n"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:importDoc><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}/9/load-xml.xml</param2></ns1:importDoc></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:importDocResponse><status>200</status><msg>Success: processControlAndProtocolXML(): ok: Primärdatenobjekt dimagsim-{run}-f2 [] : second.txt inserted&lt;br/&gt;\nok: Protokollobjekt {p4} [] : Protokoll zu dimagsim-{run}-r1\nDateien updated&lt;br/&gt;\n</msg></ns1:importDocResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "move_f1",
+            "type": "soap",
+            "operation": "moveObject",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-f1",
+                "dimagsim-{run}-r2"
+            ],
+            "result": {
+                "status": "200",
+                "msg": "Success: processControlAndProtocolXML(): ok: Primärdatenobjekt dimagsim-{run}-f1 [] : test.txt updated<br/>\nok: Protokollobjekt {p4} [] : Protokoll zu dimagsim-{run}-r1\nDateien updated<br/>\nok: Protokollobjekt {p5} [] : Protokoll zu dimagsim-{run}-r2\nDateien 2 updated<br/>\n"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:moveObject><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-f1</param2><param3 xsi:type=\"xsd:string\">dimagsim-{run}-r2</param3></ns1:moveObject></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:moveObjectResponse><status>200</status><msg>Success: processControlAndProtocolXML(): ok: Primärdatenobjekt dimagsim-{run}-f1 [] : test.txt updated&lt;br/&gt;\nok: Protokollobjekt {p4} [] : Protokoll zu dimagsim-{run}-r1\nDateien updated&lt;br/&gt;\nok: Protokollobjekt {p5} [] : Protokoll zu dimagsim-{run}-r2\nDateien 2 updated&lt;br/&gt;\n</msg></ns1:moveObjectResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "move_f1_again",
+            "note": "already there",
+            "type": "soap",
+            "operation": "moveObject",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-f1",
+                "dimagsim-{run}-r2"
+            ],
+            "result": {
+                "status": "200",
+                "msg": "Success: processControlAndProtocolXML(): ok: Primärdatenobjekt dimagsim-{run}-f1 [] : test.txt un-changed, thus update omitted<br/>\n"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:moveObject><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-f1</param2><param3 xsi:type=\"xsd:string\">dimagsim-{run}-r2</param3></ns1:moveObject></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:moveObjectResponse><status>200</status><msg>Success: processControlAndProtocolXML(): ok: Primärdatenobjekt dimagsim-{run}-f1 [] : test.txt un-changed, thus update omitted&lt;br/&gt;\n</msg></ns1:moveObjectResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "move_unknown_parent",
+            "type": "soap",
+            "operation": "moveObject",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-f1",
+                "dimagsim-{run}-nothere"
+            ],
+            "result": {
+                "status": "402",
+                "msg": "An object with aID dimagsim-{run}-nothere does not exist"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:moveObject><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-f1</param2><param3 xsi:type=\"xsd:string\">dimagsim-{run}-nothere</param3></ns1:moveObject></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:moveObjectResponse><status>402</status><msg>An object with aID dimagsim-{run}-nothere does not exist</msg></ns1:moveObjectResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "move_unknown_object",
+            "type": "soap",
+            "operation": "moveObject",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-nothere",
+                "dimagsim-{run}-r2"
+            ],
+            "result": {
+                "status": "402",
+                "msg": "An object with aID dimagsim-{run}-nothere does not exist"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:moveObject><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-nothere</param2><param3 xsi:type=\"xsd:string\">dimagsim-{run}-r2</param3></ns1:moveObject></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:moveObjectResponse><status>402</status><msg>An object with aID dimagsim-{run}-nothere does not exist</msg></ns1:moveObjectResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "move_f_below_s",
+            "note": "F only below R",
+            "type": "soap",
+            "operation": "moveObject",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-f2",
+                "dimagsim-{run}-s"
+            ],
+            "result": {
+                "status": "400",
+                "msg": "Error: processControlAndProtocolXML(): Err: cannot move dimagsim-{run}-f2 under new parent 'dimagsim-{run}-s', because of typ"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:moveObject><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-f2</param2><param3 xsi:type=\"xsd:string\">dimagsim-{run}-s</param3></ns1:moveObject></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:moveObjectResponse><status>400</status><msg>Error: processControlAndProtocolXML(): Err: cannot move dimagsim-{run}-f2 under new parent 'dimagsim-{run}-s', because of typ</msg></ns1:moveObjectResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "export_after_move",
+            "type": "soap",
+            "operation": "exportDoc",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-o",
+                "all",
+                false,
+                true,
+                false
+            ],
+            "result": {
+                "status": "200",
+                "msg": "arguments: aid=dimagsim-{run}-o; RepOptions=all; withStruct=false; ControlFileOnly=true; LogFile=false; \nNumber Objects exported: 5\n",
+                "ControlFile": "/Export/{date}/{export}/verz_obj.xml"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:exportDoc><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-o</param2><param3 xsi:type=\"xsd:string\">all</param3><param4 xsi:type=\"xsd:boolean\">false</param4><param5 xsi:type=\"xsd:boolean\">true</param5><param6 xsi:type=\"xsd:boolean\">false</param6></ns1:exportDoc></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:exportDocResponse><status>200</status><msg>arguments: aid=dimagsim-{run}-o; RepOptions=all; withStruct=false; ControlFileOnly=true; LogFile=false; \nNumber Objects exported: 5\n</msg><ControlFile>/Export/{date}/{export}/verz_obj.xml</ControlFile></ns1:exportDocResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "export_after_move_get",
+            "type": "sftp",
+            "action": "get",
+            "path": "/Import/Export/{date}/{export}/verz_obj.xml",
+            "ok": true,
+            "content": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- DIMAG loadxml -->\n<verzeichnungseinheit>\n\n\n\t<verz-obj>\n\t\t<aenderungs-datum>{datetime}</aenderungs-datum>\n\t\t<aid>dimagsim-{run}-o</aid>\n\t\t<alternate-id>{uuid}</alternate-id>\n\t\t<entstehungs-zeitraum>2026</entstehungs-zeitraum>\n\t\t<ersteller>{user}</ersteller>\n\t\t<erstellungs-datum>{datetime}</erstellungs-datum>\n\t\t<geaendert-durch>{user}</geaendert-durch>\n\t\t<metadaten-version>2023-08-21</metadaten-version>\n\t\t<pid>dimagsim-{run}-s</pid>\n\t\t<status-code>20</status-code>\n\t\t<titel>dimag-sim delivery renamed</titel>\n\t\t<typ>O</typ>\n\t\t<versions-nummer>1</versions-nummer>\n\t\t<verz-obj>\n\t\t\t<aenderungs-datum>{datetime}</aenderungs-datum>\n\t\t\t<aid>dimagsim-{run}-r1</aid>\n\t\t\t<alternate-id>{uuid}</alternate-id>\n\t\t\t<ersteller>{user}</ersteller>\n\t\t\t<erstellungs-datum>{datetime}</erstellungs-datum>\n\t\t\t<geaendert-durch>{user}</geaendert-durch>\n\t\t\t<metadaten-version>2023-08-21</metadaten-version>\n\t\t\t<pid>dimagsim-{run}-o</pid>\n\t\t\t<status-code>20</status-code>\n\t\t\t<titel>Dateien</titel>\n\t\t\t<typ>R</typ>\n\t\t\t<versions-nummer>1</versions-nummer>\n\t\t\t<verz-obj>\n\t\t\t\t<aenderungs-datum>{datetime}</aenderungs-datum>\n\t\t\t\t<aenderungs-datum-datei>{datetime}</aenderungs-datum-datei>\n\t\t\t\t<aid>dimagsim-{run}-f2</aid>\n\t\t\t\t<alternate-id>{uuid}</alternate-id>\n\t\t\t\t<datei-format>text/plain; charset=US-ASCII</datei-format>\n\t\t\t\t<datei-groesse-in-byte>220</datei-groesse-in-byte>\n\t\t\t\t<dateiname>second.txt</dateiname>\n\t\t\t\t<daten-format>ASCII</daten-format>\n\t\t\t\t<ersteller>{user}</ersteller>\n\t\t\t\t<erstellungs-datum>{datetime}</erstellungs-datum>\n\t\t\t\t<geaendert-durch>{user}</geaendert-durch>\n\t\t\t\t<jhoveformat>ASCII</jhoveformat>\n\t\t\t\t<md5>e37ba5037b8c73b8b4ff80201778c4eb</md5>\n\t\t\t\t<metadaten-version>2023-08-21</metadaten-version>\n\t\t\t\t<pid>dimagsim-{run}-r1</pid>\n\t\t\t\t<pronom-signature>DROID_SignatureFile_V119.xml</pronom-signature>\n\t\t\t\t<puidformat>Das Format konnte nicht identifiziert werden!</puidformat>\n\t\t\t\t<sftp-dateiname>dimagsim-{run}-f2</sftp-dateiname>\n\t\t\t\t<status-code>10</status-code>\n\t\t\t\t<titel>second.txt</titel>\n\t\t\t\t<typ>F</typ>\n\t\t\t\t<versions-nummer>1</versions-nummer>\n\t\t\t</verz-obj>\n\t\t</verz-obj>\n\t\t<verz-obj>\n\t\t\t<aenderungs-datum>{datetime}</aenderungs-datum>\n\t\t\t<aid>dimagsim-{run}-r2</aid>\n\t\t\t<alternate-id>{uuid}</alternate-id>\n\t\t\t<ersteller>{user}</ersteller>\n\t\t\t<erstellungs-datum>{datetime}</erstellungs-datum>\n\t\t\t<geaendert-durch>{user}</geaendert-durch>\n\t\t\t<metadaten-version>2023-08-21</metadaten-version>\n\t\t\t<pid>dimagsim-{run}-o</pid>\n\t\t\t<status-code>20</status-code>\n\t\t\t<titel>Dateien 2</titel>\n\t\t\t<typ>R</typ>\n\t\t\t<versions-nummer>1</versions-nummer>\n\t\t\t<verz-obj>\n\t\t\t\t<aenderungs-datum>{datetime}</aenderungs-datum>\n\t\t\t\t<aenderungs-datum-datei>{datetime}</aenderungs-datum-datei>\n\t\t\t\t<aid>dimagsim-{run}-f1</aid>\n\t\t\t\t<alternate-id>{uuid}</alternate-id>\n\t\t\t\t<datei-format>text/plain; charset=US-ASCII</datei-format>\n\t\t\t\t<datei-groesse-in-byte>1050</datei-groesse-in-byte>\n\t\t\t\t<dateiname>test.txt</dateiname>\n\t\t\t\t<daten-format>ASCII</daten-format>\n\t\t\t\t<ersteller>{user}</ersteller>\n\t\t\t\t<erstellungs-datum>{datetime}</erstellungs-datum>\n\t\t\t\t<geaendert-durch>{user}</geaendert-durch>\n\t\t\t\t<jhoveformat>ASCII</jhoveformat>\n\t\t\t\t<md5>84db056a04df275312b977ca2d910a49</md5>\n\t\t\t\t<metadaten-version>2023-08-21</metadaten-version>\n\t\t\t\t<pid>dimagsim-{run}-r2</pid>\n\t\t\t\t<pronom-signature>DROID_SignatureFile_V119.xml</pronom-signature>\n\t\t\t\t<puidformat>Das Format konnte nicht identifiziert werden!</puidformat>\n\t\t\t\t<sftp-dateiname>dimagsim-{run}-f1</sftp-dateiname>\n\t\t\t\t<status-code>20</status-code>\n\t\t\t\t<titel>test.txt</titel>\n\t\t\t\t<typ>F</typ>\n\t\t\t\t<versions-nummer>1</versions-nummer>\n\t\t\t</verz-obj>\n\t\t</verz-obj>\n\t</verz-obj>\n\n\n\n</verzeichnungseinheit>",
+            "md5": "1a1715c9814ae15dfb4757abcf73923a"
+        },
+        {
+            "id": "delete_f2_30",
+            "type": "soap",
+            "operation": "changeStatusCode",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-f2",
+                30
+            ],
+            "result": {
+                "status": "200",
+                "msg": "Success: processControlAndProtocolXML(): ok: Primärdatenobjekt dimagsim-{run}-f2 [] : second.txt updated<br/>\n"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:changeStatusCode><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-f2</param2><param3 xsi:type=\"xsd:int\">30</param3></ns1:changeStatusCode></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:changeStatuscodeResponse><status>200</status><msg>Success: processControlAndProtocolXML(): ok: Primärdatenobjekt dimagsim-{run}-f2 [] : second.txt updated&lt;br/&gt;\n</msg></ns1:changeStatuscodeResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "delete_f2_50_user",
+            "note": "not allowed for the user?",
+            "type": "soap",
+            "operation": "changeStatusCode",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-f2",
+                50
+            ],
+            "result": {
+                "status": "400",
+                "msg": "Error: processControlAndProtocolXML(): Der Status kann nicht für alle tiefer liegenden Objekte geändert werden."
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:changeStatusCode><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-f2</param2><param3 xsi:type=\"xsd:int\">50</param3></ns1:changeStatusCode></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:changeStatuscodeResponse><status>400</status><msg>Error: processControlAndProtocolXML(): Der Status kann nicht für alle tiefer liegenden Objekte geändert werden.</msg></ns1:changeStatuscodeResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "delete_f2_50_admin",
+            "type": "soap",
+            "operation": "changeStatusCode",
+            "account": "admin",
+            "args": [
+                "dimagsim-{run}-f2",
+                50
+            ],
+            "result": {
+                "status": "200",
+                "msg": "Success: processControlAndProtocolXML():  ok: 'dimagsim-{run}-f2' deleted<br>"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:changeStatusCode><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-f2</param2><param3 xsi:type=\"xsd:int\">50</param3></ns1:changeStatusCode></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:changeStatuscodeResponse><status>200</status><msg>Success: processControlAndProtocolXML():  ok: 'dimagsim-{run}-f2' deleted&lt;br&gt;</msg></ns1:changeStatuscodeResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "export_deleted",
+            "type": "soap",
+            "operation": "exportDoc",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-f2",
+                "all",
+                false,
+                true,
+                false
+            ],
+            "result": {
+                "status": "500",
+                "msg": "Exception: Failed to find dimagsim-{run}-f2",
+                "ControlFile": ""
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:exportDoc><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-f2</param2><param3 xsi:type=\"xsd:string\">all</param3><param4 xsi:type=\"xsd:boolean\">false</param4><param5 xsi:type=\"xsd:boolean\">true</param5><param6 xsi:type=\"xsd:boolean\">false</param6></ns1:exportDoc></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:exportDocResponse><status>500</status><msg>Exception: Failed to find dimagsim-{run}-f2</msg><ControlFile></ControlFile></ns1:exportDocResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "kv_after_delete",
+            "type": "soap",
+            "operation": "getAIDforKeyValue",
+            "account": "user",
+            "args": [
+                "aid",
+                "dimagsim-{run}-%",
+                "File"
+            ],
+            "result": {
+                "status": "200",
+                "msg": "found some objects",
+                "hits": "1",
+                "aIDList": "dimagsim-{run}-f1"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getAIDforKeyValue><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">aid</param2><param3 xsi:type=\"xsd:string\">dimagsim-{run}-%</param3><param4 xsi:type=\"xsd:string\">File</param4></ns1:getAIDforKeyValue></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:getAIDforKeyValueResponse><status>200</status><msg>found some objects</msg><hits>1</hits><aIDList>dimagsim-{run}-f1</aIDList></ns1:getAIDforKeyValueResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "cleanup_s_30",
+            "type": "soap",
+            "operation": "changeStatusCode",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-s",
+                30
+            ],
+            "result": {
+                "status": "200",
+                "msg": "Success: processControlAndProtocolXML(): ok: Primärdatenobjekt dimagsim-{run}-f1 [] : test.txt updated<br/>\nok: Repräsentation dimagsim-{run}-r2 [] : Dateien 2 updated<br/>\nok: Repräsentation dimagsim-{run}-r1 [] : Dateien updated<br/>\nok: Informationsobjekt dimagsim-{run}-o [] : dimag-sim delivery renamed updated<br/>\nok: Strukturobjekt dimagsim-{run}-s [{root_signatur} dimagsim] : dimag-sim structure updated<br/>\n"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:changeStatusCode><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-s</param2><param3 xsi:type=\"xsd:int\">30</param3></ns1:changeStatusCode></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:changeStatuscodeResponse><status>200</status><msg>Success: processControlAndProtocolXML(): ok: Primärdatenobjekt dimagsim-{run}-f1 [] : test.txt updated&lt;br/&gt;\nok: Repräsentation dimagsim-{run}-r2 [] : Dateien 2 updated&lt;br/&gt;\nok: Repräsentation dimagsim-{run}-r1 [] : Dateien updated&lt;br/&gt;\nok: Informationsobjekt dimagsim-{run}-o [] : dimag-sim delivery renamed updated&lt;br/&gt;\nok: Strukturobjekt dimagsim-{run}-s [{root_signatur} dimagsim] : dimag-sim structure updated&lt;br/&gt;\n</msg></ns1:changeStatuscodeResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "cleanup_s_50",
+            "type": "soap",
+            "operation": "changeStatusCode",
+            "account": "admin",
+            "args": [
+                "dimagsim-{run}-s",
+                50
+            ],
+            "result": {
+                "status": "200",
+                "msg": "Success: processControlAndProtocolXML():  ok: '{p5}' deleted<br> ok: 'dimagsim-{run}-f1' deleted<br> ok: '{p4}' deleted<br> ok: '{p3}' deleted<br> ok: 'dimagsim-{run}-r2' deleted<br> ok: 'dimagsim-{run}-r1' deleted<br> ok: '{p1}' deleted<br> ok: 'dimagsim-{run}-o' deleted<br> ok: 'dimagsim-{run}-s' deleted<br>"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:changeStatusCode><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-s</param2><param3 xsi:type=\"xsd:int\">50</param3></ns1:changeStatusCode></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:changeStatuscodeResponse><status>200</status><msg>Success: processControlAndProtocolXML():  ok: '{p5}' deleted&lt;br&gt; ok: 'dimagsim-{run}-f1' deleted&lt;br&gt; ok: '{p4}' deleted&lt;br&gt; ok: '{p3}' deleted&lt;br&gt; ok: 'dimagsim-{run}-r2' deleted&lt;br&gt; ok: 'dimagsim-{run}-r1' deleted&lt;br&gt; ok: '{p1}' deleted&lt;br&gt; ok: 'dimagsim-{run}-o' deleted&lt;br&gt; ok: 'dimagsim-{run}-s' deleted&lt;br&gt;</msg></ns1:changeStatuscodeResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "cleanup_extra_30",
+            "note": "only if step 4 created it",
+            "type": "soap",
+            "operation": "changeStatusCode",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-o2",
+                30
+            ],
+            "result": {
+                "status": "402",
+                "msg": "An object with aID dimagsim-{run}-o2 does not exist"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:changeStatusCode><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-o2</param2><param3 xsi:type=\"xsd:int\">30</param3></ns1:changeStatusCode></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:changeStatuscodeResponse><status>402</status><msg>An object with aID dimagsim-{run}-o2 does not exist</msg></ns1:changeStatuscodeResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "cleanup_extra_50",
+            "type": "soap",
+            "operation": "changeStatusCode",
+            "account": "admin",
+            "args": [
+                "dimagsim-{run}-o2",
+                50
+            ],
+            "result": {
+                "status": "402",
+                "msg": "An object with aID dimagsim-{run}-o2 does not exist"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:changeStatusCode><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-o2</param2><param3 xsi:type=\"xsd:int\">50</param3></ns1:changeStatusCode></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:changeStatuscodeResponse><status>402</status><msg>An object with aID dimagsim-{run}-o2 does not exist</msg></ns1:changeStatuscodeResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "cleanup_fbad_30",
+            "type": "soap",
+            "operation": "changeStatusCode",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-fbad",
+                30
+            ],
+            "result": {
+                "status": "402",
+                "msg": "An object with aID dimagsim-{run}-fbad does not exist"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:changeStatusCode><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-fbad</param2><param3 xsi:type=\"xsd:int\">30</param3></ns1:changeStatusCode></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:changeStatuscodeResponse><status>402</status><msg>An object with aID dimagsim-{run}-fbad does not exist</msg></ns1:changeStatuscodeResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "cleanup_fbad_50",
+            "type": "soap",
+            "operation": "changeStatusCode",
+            "account": "admin",
+            "args": [
+                "dimagsim-{run}-fbad",
+                50
+            ],
+            "result": {
+                "status": "402",
+                "msg": "An object with aID dimagsim-{run}-fbad does not exist"
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:changeStatusCode><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-fbad</param2><param3 xsi:type=\"xsd:int\">50</param3></ns1:changeStatusCode></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:changeStatuscodeResponse><status>402</status><msg>An object with aID dimagsim-{run}-fbad does not exist</msg></ns1:changeStatuscodeResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "cleanup_check_kv",
+            "type": "soap",
+            "operation": "getAIDforKeyValue",
+            "account": "user",
+            "args": [
+                "aid",
+                "dimagsim-{run}-%",
+                "Any"
+            ],
+            "result": {
+                "status": "200",
+                "msg": "nothing appropriate found",
+                "hits": "0",
+                "aIDList": ""
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getAIDforKeyValue><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">aid</param2><param3 xsi:type=\"xsd:string\">dimagsim-{run}-%</param3><param4 xsi:type=\"xsd:string\">Any</param4></ns1:getAIDforKeyValue></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:getAIDforKeyValueResponse><status>200</status><msg>nothing appropriate found</msg><hits>0</hits><aIDList></aIDList></ns1:getAIDforKeyValueResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "cleanup_check_export",
+            "type": "soap",
+            "operation": "exportDoc",
+            "account": "user",
+            "args": [
+                "dimagsim-{run}-s",
+                "all",
+                false,
+                true,
+                false
+            ],
+            "result": {
+                "status": "500",
+                "msg": "Exception: Failed to find dimagsim-{run}-s",
+                "ControlFile": ""
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:exportDoc><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">dimagsim-{run}-s</param2><param3 xsi:type=\"xsd:string\">all</param3><param4 xsi:type=\"xsd:boolean\">false</param4><param5 xsi:type=\"xsd:boolean\">true</param5><param6 xsi:type=\"xsd:boolean\">false</param6></ns1:exportDoc></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:exportDocResponse><status>500</status><msg>Exception: Failed to find dimagsim-{run}-s</msg><ControlFile></ControlFile></ns1:exportDocResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "changed_since_end",
+            "type": "soap",
+            "operation": "getObjectsChangedSince",
+            "account": "user",
+            "args": [
+                "{datetime}"
+            ],
+            "result": {
+                "status": "200",
+                "msg": "nothing appropriate found",
+                "hits": "0",
+                "aIDList": ""
+            },
+            "fault": null,
+            "request": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"{url}/soap/webservice_3_5_0.wsdl\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Body><ns1:getObjectsChangedSince><param0 xsi:type=\"xsd:string\">***</param0><param1 xsi:type=\"xsd:string\">***</param1><param2 xsi:type=\"xsd:string\">{datetime}</param2></ns1:getObjectsChangedSince></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "response": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns1=\"http://dimag.la-bw.de/WebService.wsdl\"><SOAP-ENV:Body><ns1:getObjectsChangedSinceResponse><status>200</status><msg>nothing appropriate found</msg><hits>0</hits><aIDList></aIDList></ns1:getObjectsChangedSinceResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>\n",
+            "http_status": 200
+        },
+        {
+            "id": "cleanup_sftp_work",
+            "type": "sftp",
+            "action": "delete_dir",
+            "path": "/Import/dimagsim-{run}",
+            "ok": true
+        },
+        {
+            "id": "cleanup_export_meta",
+            "type": "sftp",
+            "action": "delete_dir",
+            "path": "/Import/Export/{date}/{export}",
+            "ok": true
+        },
+        {
+            "id": "cleanup_export_doc",
+            "type": "sftp",
+            "action": "delete_dir",
+            "path": "/Import/Export/{date}/{export}",
+            "ok": true
+        },
+        {
+            "id": "cleanup_export_data",
+            "type": "sftp",
+            "action": "delete_dir",
+            "path": "/Import/Export/{date}/{export}",
+            "ok": true
+        },
+        {
+            "id": "cleanup_export_struct",
+            "type": "sftp",
+            "action": "delete_dir",
+            "path": "/Import/Export/{date}/{export}",
+            "ok": true
+        },
+        {
+            "id": "cleanup_export_final",
+            "type": "sftp",
+            "action": "delete_dir",
+            "path": "/Import/Export/{date}/{export}",
+            "ok": true
+        },
+        {
+            "id": "cleanup_export_move",
+            "type": "sftp",
+            "action": "delete_dir",
+            "path": "/Import/Export/{date}/{export}",
+            "ok": true
+        }
+    ]
+}
